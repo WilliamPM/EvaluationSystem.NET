@@ -9,9 +9,17 @@ namespace EvaluationSystemUI.Controllers
     public class LoginController : Controller
     {
         // GET: Login
-        public ActionResult Index()
+        public ActionResult LoginDefault()
         {
             return View();
         }
+
+        public ActionResult Register()
+        {
+            ViewBag.Message = "Register an user or a teacher.";
+            return View();
+        }
+
+
     }
 }
