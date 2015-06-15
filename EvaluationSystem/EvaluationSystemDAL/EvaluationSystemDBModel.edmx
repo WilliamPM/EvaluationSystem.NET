@@ -1,0 +1,585 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="evaluationsystemModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="TagDescription" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="commentary">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+            <PropertyRef Name="CommentaryId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="CommentaryId" Type="int" Nullable="false" />
+          <Property Name="FeedBack" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="evaluation">
+          <Key>
+            <PropertyRef Name="EvaluationId" />
+          </Key>
+          <Property Name="EvaluationId" Type="int" Nullable="false" />
+          <Property Name="EvaluationTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="evaluationquestion">
+          <Key>
+            <PropertyRef Name="EvaluationId" />
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="EvaluationId" Type="int" Nullable="false" />
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="evaluationtype">
+          <Key>
+            <PropertyRef Name="EvaluationTypeId" />
+          </Key>
+          <Property Name="EvaluationTypeId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ClosedCode" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="question">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="Enunciation" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="AnswerA" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="AnswerB" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="AnswerC" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="AnswerD" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="AnswerE" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="CorrectAnswer" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="UsersId" />
+          </Key>
+          <Property Name="UsersId" Type="int" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="UsersTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usersevaluationquestion">
+          <Key>
+            <PropertyRef Name="EvaluationId" />
+            <PropertyRef Name="QuestionId" />
+            <PropertyRef Name="UsersId" />
+          </Key>
+          <Property Name="EvaluationId" Type="int" Nullable="false" />
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="UsersId" Type="int" Nullable="false" />
+          <Property Name="Answer" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userstype">
+          <Key>
+            <PropertyRef Name="UsersTypeId" />
+          </Key>
+          <Property Name="UsersTypeId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CATEGORY_QUESTION">
+          <End Role="question" Type="Self.question" Multiplicity="1" />
+          <End Role="category" Type="Self.category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="category">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMMENTARY_QUESTION">
+          <End Role="question" Type="Self.question" Multiplicity="1" />
+          <End Role="commentary" Type="Self.commentary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="commentary">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EVALUATION_EVALUATIONTYPE">
+          <End Role="evaluationtype" Type="Self.evaluationtype" Multiplicity="1" />
+          <End Role="evaluation" Type="Self.evaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="evaluationtype">
+              <PropertyRef Name="EvaluationTypeId" />
+            </Principal>
+            <Dependent Role="evaluation">
+              <PropertyRef Name="EvaluationTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EVALUATIONQUESTION_EVALUATION">
+          <End Role="evaluation" Type="Self.evaluation" Multiplicity="1" />
+          <End Role="evaluationquestion" Type="Self.evaluationquestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="evaluation">
+              <PropertyRef Name="EvaluationId" />
+            </Principal>
+            <Dependent Role="evaluationquestion">
+              <PropertyRef Name="EvaluationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EVALUATIONQUESTION_QUESTION">
+          <End Role="question" Type="Self.question" Multiplicity="1" />
+          <End Role="evaluationquestion" Type="Self.evaluationquestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="evaluationquestion">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERS_USERSTYPE">
+          <End Role="userstype" Type="Self.userstype" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userstype">
+              <PropertyRef Name="UsersTypeId" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="UsersTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERSEVALUATIONQUESTION_EVALUATION">
+          <End Role="evaluation" Type="Self.evaluation" Multiplicity="1" />
+          <End Role="usersevaluationquestion" Type="Self.usersevaluationquestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="evaluation">
+              <PropertyRef Name="EvaluationId" />
+            </Principal>
+            <Dependent Role="usersevaluationquestion">
+              <PropertyRef Name="EvaluationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERSEVALUATIONQUESTION_QUESTION">
+          <End Role="question" Type="Self.question" Multiplicity="1" />
+          <End Role="usersevaluationquestion" Type="Self.usersevaluationquestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="usersevaluationquestion">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERSEVALUATIONQUESTION_USERS">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="usersevaluationquestion" Type="Self.usersevaluationquestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="UsersId" />
+            </Principal>
+            <Dependent Role="usersevaluationquestion">
+              <PropertyRef Name="UsersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="evaluationsystemModelStoreContainer">
+          <EntitySet Name="category" EntityType="Self.category" Schema="evaluationsystem" store:Type="Tables" />
+          <EntitySet Name="commentary" EntityType="Self.commentary" Schema="evaluationsystem" store:Type="Tables" />
+          <EntitySet Name="evaluation" EntityType="Self.evaluation" Schema="evaluationsystem" store:Type="Tables" />
+          <EntitySet Name="evaluationquestion" EntityType="Self.evaluationquestion" Schema="evaluationsystem" store:Type="Tables" />
+          <EntitySet Name="evaluationtype" EntityType="Self.evaluationtype" Schema="evaluationsystem" store:Type="Tables" />
+          <EntitySet Name="question" EntityType="Self.question" Schema="evaluationsystem" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="evaluationsystem" store:Type="Tables" />
+          <EntitySet Name="usersevaluationquestion" EntityType="Self.usersevaluationquestion" Schema="evaluationsystem" store:Type="Tables" />
+          <EntitySet Name="userstype" EntityType="Self.userstype" Schema="evaluationsystem" store:Type="Tables" />
+          <AssociationSet Name="FK_CATEGORY_QUESTION" Association="Self.FK_CATEGORY_QUESTION">
+            <End Role="question" EntitySet="question" />
+            <End Role="category" EntitySet="category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMMENTARY_QUESTION" Association="Self.FK_COMMENTARY_QUESTION">
+            <End Role="question" EntitySet="question" />
+            <End Role="commentary" EntitySet="commentary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EVALUATION_EVALUATIONTYPE" Association="Self.FK_EVALUATION_EVALUATIONTYPE">
+            <End Role="evaluationtype" EntitySet="evaluationtype" />
+            <End Role="evaluation" EntitySet="evaluation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EVALUATIONQUESTION_EVALUATION" Association="Self.FK_EVALUATIONQUESTION_EVALUATION">
+            <End Role="evaluation" EntitySet="evaluation" />
+            <End Role="evaluationquestion" EntitySet="evaluationquestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EVALUATIONQUESTION_QUESTION" Association="Self.FK_EVALUATIONQUESTION_QUESTION">
+            <End Role="question" EntitySet="question" />
+            <End Role="evaluationquestion" EntitySet="evaluationquestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USERS_USERSTYPE" Association="Self.FK_USERS_USERSTYPE">
+            <End Role="userstype" EntitySet="userstype" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USERSEVALUATIONQUESTION_EVALUATION" Association="Self.FK_USERSEVALUATIONQUESTION_EVALUATION">
+            <End Role="evaluation" EntitySet="evaluation" />
+            <End Role="usersevaluationquestion" EntitySet="usersevaluationquestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USERSEVALUATIONQUESTION_QUESTION" Association="Self.FK_USERSEVALUATIONQUESTION_QUESTION">
+            <End Role="question" EntitySet="question" />
+            <End Role="usersevaluationquestion" EntitySet="usersevaluationquestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USERSEVALUATIONQUESTION_USERS" Association="Self.FK_USERSEVALUATIONQUESTION_USERS">
+            <End Role="users" EntitySet="users" />
+            <End Role="usersevaluationquestion" EntitySet="usersevaluationquestion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="evaluationsystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="TagDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="question" Relationship="Self.FK_CATEGORY_QUESTION" FromRole="category" ToRole="question" />
+        </EntityType>
+        <EntityType Name="commentary">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+            <PropertyRef Name="CommentaryId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="CommentaryId" Type="Int32" Nullable="false" />
+          <Property Name="FeedBack" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="question" Relationship="Self.FK_COMMENTARY_QUESTION" FromRole="commentary" ToRole="question" />
+        </EntityType>
+        <EntityType Name="evaluation">
+          <Key>
+            <PropertyRef Name="EvaluationId" />
+          </Key>
+          <Property Name="EvaluationId" Type="Int32" Nullable="false" />
+          <Property Name="EvaluationTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="evaluationtype" Relationship="Self.FK_EVALUATION_EVALUATIONTYPE" FromRole="evaluation" ToRole="evaluationtype" />
+          <NavigationProperty Name="usersevaluationquestion" Relationship="Self.FK_USERSEVALUATIONQUESTION_EVALUATION" FromRole="evaluation" ToRole="usersevaluationquestion" />
+          <NavigationProperty Name="question" Relationship="Self.evaluationquestion" FromRole="evaluation" ToRole="question" />
+        </EntityType>
+        <EntityType Name="evaluationtype">
+          <Key>
+            <PropertyRef Name="EvaluationTypeId" />
+          </Key>
+          <Property Name="EvaluationTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClosedCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="evaluation" Relationship="Self.FK_EVALUATION_EVALUATIONTYPE" FromRole="evaluationtype" ToRole="evaluation" />
+        </EntityType>
+        <EntityType Name="question">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="Enunciation" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AnswerA" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AnswerB" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AnswerC" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AnswerD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AnswerE" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CorrectAnswer" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="category" Relationship="Self.FK_CATEGORY_QUESTION" FromRole="question" ToRole="category" />
+          <NavigationProperty Name="commentary" Relationship="Self.FK_COMMENTARY_QUESTION" FromRole="question" ToRole="commentary" />
+          <NavigationProperty Name="usersevaluationquestion" Relationship="Self.FK_USERSEVALUATIONQUESTION_QUESTION" FromRole="question" ToRole="usersevaluationquestion" />
+          <NavigationProperty Name="evaluation" Relationship="Self.evaluationquestion" FromRole="question" ToRole="evaluation" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="UsersId" />
+          </Key>
+          <Property Name="UsersId" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UsersTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="userstype" Relationship="Self.FK_USERS_USERSTYPE" FromRole="users" ToRole="userstype" />
+          <NavigationProperty Name="usersevaluationquestion" Relationship="Self.FK_USERSEVALUATIONQUESTION_USERS" FromRole="users" ToRole="usersevaluationquestion" />
+        </EntityType>
+        <EntityType Name="usersevaluationquestion">
+          <Key>
+            <PropertyRef Name="EvaluationId" />
+            <PropertyRef Name="QuestionId" />
+            <PropertyRef Name="UsersId" />
+          </Key>
+          <Property Name="EvaluationId" Type="Int32" Nullable="false" />
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="UsersId" Type="Int32" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="evaluation" Relationship="Self.FK_USERSEVALUATIONQUESTION_EVALUATION" FromRole="usersevaluationquestion" ToRole="evaluation" />
+          <NavigationProperty Name="question" Relationship="Self.FK_USERSEVALUATIONQUESTION_QUESTION" FromRole="usersevaluationquestion" ToRole="question" />
+          <NavigationProperty Name="users" Relationship="Self.FK_USERSEVALUATIONQUESTION_USERS" FromRole="usersevaluationquestion" ToRole="users" />
+        </EntityType>
+        <EntityType Name="userstype">
+          <Key>
+            <PropertyRef Name="UsersTypeId" />
+          </Key>
+          <Property Name="UsersTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="users" Relationship="Self.FK_USERS_USERSTYPE" FromRole="userstype" ToRole="users" />
+        </EntityType>
+        <Association Name="FK_CATEGORY_QUESTION">
+          <End Role="question" Type="Self.question" Multiplicity="1" />
+          <End Role="category" Type="Self.category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="category">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMMENTARY_QUESTION">
+          <End Role="question" Type="Self.question" Multiplicity="1" />
+          <End Role="commentary" Type="Self.commentary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="commentary">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EVALUATION_EVALUATIONTYPE">
+          <End Role="evaluationtype" Type="Self.evaluationtype" Multiplicity="1" />
+          <End Role="evaluation" Type="Self.evaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="evaluationtype">
+              <PropertyRef Name="EvaluationTypeId" />
+            </Principal>
+            <Dependent Role="evaluation">
+              <PropertyRef Name="EvaluationTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERSEVALUATIONQUESTION_EVALUATION">
+          <End Role="evaluation" Type="Self.evaluation" Multiplicity="1" />
+          <End Role="usersevaluationquestion" Type="Self.usersevaluationquestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="evaluation">
+              <PropertyRef Name="EvaluationId" />
+            </Principal>
+            <Dependent Role="usersevaluationquestion">
+              <PropertyRef Name="EvaluationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERSEVALUATIONQUESTION_QUESTION">
+          <End Role="question" Type="Self.question" Multiplicity="1" />
+          <End Role="usersevaluationquestion" Type="Self.usersevaluationquestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="usersevaluationquestion">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERS_USERSTYPE">
+          <End Role="userstype" Type="Self.userstype" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userstype">
+              <PropertyRef Name="UsersTypeId" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="UsersTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERSEVALUATIONQUESTION_USERS">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="usersevaluationquestion" Type="Self.usersevaluationquestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="UsersId" />
+            </Principal>
+            <Dependent Role="usersevaluationquestion">
+              <PropertyRef Name="UsersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="evaluationquestion">
+          <End Role="evaluation" Type="Self.evaluation" Multiplicity="*" />
+          <End Role="question" Type="Self.question" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="evaluationsystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="category" EntityType="Self.category" />
+          <EntitySet Name="commentary" EntityType="Self.commentary" />
+          <EntitySet Name="evaluation" EntityType="Self.evaluation" />
+          <EntitySet Name="evaluationtype" EntityType="Self.evaluationtype" />
+          <EntitySet Name="question" EntityType="Self.question" />
+          <EntitySet Name="users" EntityType="Self.users" />
+          <EntitySet Name="usersevaluationquestion" EntityType="Self.usersevaluationquestion" />
+          <EntitySet Name="userstype" EntityType="Self.userstype" />
+          <AssociationSet Name="FK_CATEGORY_QUESTION" Association="Self.FK_CATEGORY_QUESTION">
+            <End Role="question" EntitySet="question" />
+            <End Role="category" EntitySet="category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMMENTARY_QUESTION" Association="Self.FK_COMMENTARY_QUESTION">
+            <End Role="question" EntitySet="question" />
+            <End Role="commentary" EntitySet="commentary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EVALUATION_EVALUATIONTYPE" Association="Self.FK_EVALUATION_EVALUATIONTYPE">
+            <End Role="evaluationtype" EntitySet="evaluationtype" />
+            <End Role="evaluation" EntitySet="evaluation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USERSEVALUATIONQUESTION_EVALUATION" Association="Self.FK_USERSEVALUATIONQUESTION_EVALUATION">
+            <End Role="evaluation" EntitySet="evaluation" />
+            <End Role="usersevaluationquestion" EntitySet="usersevaluationquestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USERSEVALUATIONQUESTION_QUESTION" Association="Self.FK_USERSEVALUATIONQUESTION_QUESTION">
+            <End Role="question" EntitySet="question" />
+            <End Role="usersevaluationquestion" EntitySet="usersevaluationquestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USERS_USERSTYPE" Association="Self.FK_USERS_USERSTYPE">
+            <End Role="userstype" EntitySet="userstype" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USERSEVALUATIONQUESTION_USERS" Association="Self.FK_USERSEVALUATIONQUESTION_USERS">
+            <End Role="users" EntitySet="users" />
+            <End Role="usersevaluationquestion" EntitySet="usersevaluationquestion" />
+          </AssociationSet>
+          <AssociationSet Name="evaluationquestion" Association="Self.evaluationquestion">
+            <End Role="evaluation" EntitySet="evaluation" />
+            <End Role="question" EntitySet="question" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="evaluationsystemModelStoreContainer" CdmEntityContainer="evaluationsystemEntities">
+          <EntitySetMapping Name="category">
+            <EntityTypeMapping TypeName="evaluationsystemModel.category">
+              <MappingFragment StoreEntitySet="category">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="TagDescription" ColumnName="TagDescription" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="commentary">
+            <EntityTypeMapping TypeName="evaluationsystemModel.commentary">
+              <MappingFragment StoreEntitySet="commentary">
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="CommentaryId" ColumnName="CommentaryId" />
+                <ScalarProperty Name="FeedBack" ColumnName="FeedBack" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="evaluation">
+            <EntityTypeMapping TypeName="evaluationsystemModel.evaluation">
+              <MappingFragment StoreEntitySet="evaluation">
+                <ScalarProperty Name="EvaluationId" ColumnName="EvaluationId" />
+                <ScalarProperty Name="EvaluationTypeId" ColumnName="EvaluationTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="evaluationtype">
+            <EntityTypeMapping TypeName="evaluationsystemModel.evaluationtype">
+              <MappingFragment StoreEntitySet="evaluationtype">
+                <ScalarProperty Name="EvaluationTypeId" ColumnName="EvaluationTypeId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ClosedCode" ColumnName="ClosedCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="question">
+            <EntityTypeMapping TypeName="evaluationsystemModel.question">
+              <MappingFragment StoreEntitySet="question">
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Enunciation" ColumnName="Enunciation" />
+                <ScalarProperty Name="AnswerA" ColumnName="AnswerA" />
+                <ScalarProperty Name="AnswerB" ColumnName="AnswerB" />
+                <ScalarProperty Name="AnswerC" ColumnName="AnswerC" />
+                <ScalarProperty Name="AnswerD" ColumnName="AnswerD" />
+                <ScalarProperty Name="AnswerE" ColumnName="AnswerE" />
+                <ScalarProperty Name="CorrectAnswer" ColumnName="CorrectAnswer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="evaluationsystemModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="UsersId" ColumnName="UsersId" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UsersTypeId" ColumnName="UsersTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usersevaluationquestion">
+            <EntityTypeMapping TypeName="evaluationsystemModel.usersevaluationquestion">
+              <MappingFragment StoreEntitySet="usersevaluationquestion">
+                <ScalarProperty Name="EvaluationId" ColumnName="EvaluationId" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="UsersId" ColumnName="UsersId" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userstype">
+            <EntityTypeMapping TypeName="evaluationsystemModel.userstype">
+              <MappingFragment StoreEntitySet="userstype">
+                <ScalarProperty Name="UsersTypeId" ColumnName="UsersTypeId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="evaluationquestion" TypeName="evaluationsystemModel.evaluationquestion" StoreEntitySet="evaluationquestion">
+            <EndProperty Name="evaluation">
+              <ScalarProperty Name="EvaluationId" ColumnName="EvaluationId" />
+            </EndProperty>
+            <EndProperty Name="question">
+              <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

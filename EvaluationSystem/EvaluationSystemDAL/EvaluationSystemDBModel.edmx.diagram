@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c0bd03fbbed54e8eb9b21b8b515b3448" Name="Diagram1" ZoomLevel="93">
+        <EntityTypeShape EntityType="evaluationsystemModel.category" Width="1.5" PointX="7.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="evaluationsystemModel.commentary" Width="1.5" PointX="7.5" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="evaluationsystemModel.evaluation" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="evaluationsystemModel.evaluationtype" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="evaluationsystemModel.question" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="evaluationsystemModel.users" Width="1.5" PointX="8.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="evaluationsystemModel.usersevaluationquestion" Width="1.5" PointX="10.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="evaluationsystemModel.userstype" Width="1.5" PointX="6" PointY="7.375" IsExpanded="true" />
+        <AssociationConnector Association="evaluationsystemModel.FK_CATEGORY_QUESTION" ManuallyRouted="false" />
+        <AssociationConnector Association="evaluationsystemModel.FK_COMMENTARY_QUESTION" ManuallyRouted="false" />
+        <AssociationConnector Association="evaluationsystemModel.FK_EVALUATION_EVALUATIONTYPE" ManuallyRouted="false" />
+        <AssociationConnector Association="evaluationsystemModel.FK_USERSEVALUATIONQUESTION_EVALUATION" ManuallyRouted="false" />
+        <AssociationConnector Association="evaluationsystemModel.FK_USERSEVALUATIONQUESTION_QUESTION" ManuallyRouted="false" />
+        <AssociationConnector Association="evaluationsystemModel.FK_USERS_USERSTYPE" ManuallyRouted="false" />
+        <AssociationConnector Association="evaluationsystemModel.FK_USERSEVALUATIONQUESTION_USERS" ManuallyRouted="false" />
+        <AssociationConnector Association="evaluationsystemModel.evaluationquestion" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
