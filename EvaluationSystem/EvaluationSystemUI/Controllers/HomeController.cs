@@ -15,7 +15,7 @@ namespace EvaluationSystemUI.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Application developed by Mateus Athaydes, Renan Lopes, William Moreira.";
 
             return View();
         }
