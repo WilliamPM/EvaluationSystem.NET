@@ -166,7 +166,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Commentary.cs" />
+    <Compile Include="Models\EvaluationType.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
