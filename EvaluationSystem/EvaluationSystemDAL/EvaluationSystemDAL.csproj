@@ -49,17 +49,32 @@
     <Compile Include="category.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBClasses\UsersEvaluationQuestionDAL.cs" />
     <Compile Include="commentary.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBClasses\CategoryDAL.cs" />
+    <Compile Include="DBClasses\CommentaryDAL.cs" />
+    <Compile Include="DBClasses\DBConnect.cs" />
+    <Compile Include="DBClasses\EvaluationDAL.cs" />
+    <Compile Include="DBClasses\EvaluationTypeDAL.cs" />
+    <Compile Include="DBClasses\QuestionDAL.cs" />
+    <Compile Include="DBClasses\UsersDAL.cs" />
+    <Compile Include="DBClasses\UsersEvaluationQuestionDAL.cs" />
+    <Compile Include="DBClasses\UsersTypeDAL.cs" />
     <Compile Include="evaluation.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="evaluationtype.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\ICategoryDAL.cs" />
+    <Compile Include="Interfaces\ICommentaryDAL.cs" />
+    <Compile Include="Interfaces\IEvaluationDAL.cs" />
+    <Compile Include="Interfaces\IEvaluationTypeDAL.cs" />
     <Compile Include="Interfaces\IUsersEvaluationQuestionDAL.cs" />
+    <Compile Include="Interfaces\IQuestionDAL.cs" />
+    <Compile Include="Interfaces\IUsersDAL.cs" />
+    <Compile Include="Interfaces\IUsersTypeDAL.cs" />
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
