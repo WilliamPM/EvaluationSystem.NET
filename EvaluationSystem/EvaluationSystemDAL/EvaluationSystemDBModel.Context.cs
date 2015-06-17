@@ -13,10 +13,10 @@ namespace EvaluationSystemDAL
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class evaluationsystemEntities : DbContext
+    public partial class evaluationsystemEntities1 : DbContext
     {
-        public evaluationsystemEntities()
-            : base("name=evaluationsystemEntities")
+        public evaluationsystemEntities1()
+            : base("name=evaluationsystemEntities1")
         {
         }
     
@@ -28,10 +28,8 @@ namespace EvaluationSystemDAL
         public DbSet<category> category { get; set; }
         public DbSet<commentary> commentary { get; set; }
         public DbSet<evaluation> evaluation { get; set; }
-        public DbSet<evaluationtype> evaluationtype { get; set; }
         public DbSet<question> question { get; set; }
         public DbSet<users> users { get; set; }
         public DbSet<usersevaluationquestion> usersevaluationquestion { get; set; }
-        public DbSet<userstype> userstype { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="evaluationsystemModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="evaluationsystemModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="category">
           <Key>
             <PropertyRef Name="CategoryId" />
@@ -29,6 +29,7 @@
           </Key>
           <Property Name="EvaluationId" Type="int" Nullable="false" />
           <Property Name="EvaluationTypeId" Type="int" Nullable="false" />
+          <Property Name="ClosedCode" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="evaluationquestion">
           <Key>
@@ -37,14 +38,6 @@
           </Key>
           <Property Name="EvaluationId" Type="int" Nullable="false" />
           <Property Name="QuestionId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="evaluationtype">
-          <Key>
-            <PropertyRef Name="EvaluationTypeId" />
-          </Key>
-          <Property Name="EvaluationTypeId" Type="int" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="ClosedCode" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="question">
           <Key>
@@ -67,7 +60,7 @@
           <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="UsersTypeId" Type="int" Nullable="false" />
+          <Property Name="UsersType" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="usersevaluationquestion">
           <Key>
@@ -79,13 +72,6 @@
           <Property Name="QuestionId" Type="int" Nullable="false" />
           <Property Name="UsersId" Type="int" Nullable="false" />
           <Property Name="Answer" Type="char" MaxLength="1" Nullable="false" />
-        </EntityType>
-        <EntityType Name="userstype">
-          <Key>
-            <PropertyRef Name="UsersTypeId" />
-          </Key>
-          <Property Name="UsersTypeId" Type="int" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <Association Name="FK_CATEGORY_QUESTION">
           <End Role="question" Type="Self.question" Multiplicity="1" />
@@ -111,18 +97,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EVALUATION_EVALUATIONTYPE">
-          <End Role="evaluationtype" Type="Self.evaluationtype" Multiplicity="1" />
-          <End Role="evaluation" Type="Self.evaluation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="evaluationtype">
-              <PropertyRef Name="EvaluationTypeId" />
-            </Principal>
-            <Dependent Role="evaluation">
-              <PropertyRef Name="EvaluationTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_EVALUATIONQUESTION_EVALUATION">
           <End Role="evaluation" Type="Self.evaluation" Multiplicity="1" />
           <End Role="evaluationquestion" Type="Self.evaluationquestion" Multiplicity="*" />
@@ -144,18 +118,6 @@
             </Principal>
             <Dependent Role="evaluationquestion">
               <PropertyRef Name="QuestionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_USERS_USERSTYPE">
-          <End Role="userstype" Type="Self.userstype" Multiplicity="1" />
-          <End Role="users" Type="Self.users" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="userstype">
-              <PropertyRef Name="UsersTypeId" />
-            </Principal>
-            <Dependent Role="users">
-              <PropertyRef Name="UsersTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -200,11 +162,9 @@
           <EntitySet Name="commentary" EntityType="Self.commentary" Schema="evaluationsystem" store:Type="Tables" />
           <EntitySet Name="evaluation" EntityType="Self.evaluation" Schema="evaluationsystem" store:Type="Tables" />
           <EntitySet Name="evaluationquestion" EntityType="Self.evaluationquestion" Schema="evaluationsystem" store:Type="Tables" />
-          <EntitySet Name="evaluationtype" EntityType="Self.evaluationtype" Schema="evaluationsystem" store:Type="Tables" />
           <EntitySet Name="question" EntityType="Self.question" Schema="evaluationsystem" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="evaluationsystem" store:Type="Tables" />
           <EntitySet Name="usersevaluationquestion" EntityType="Self.usersevaluationquestion" Schema="evaluationsystem" store:Type="Tables" />
-          <EntitySet Name="userstype" EntityType="Self.userstype" Schema="evaluationsystem" store:Type="Tables" />
           <AssociationSet Name="FK_CATEGORY_QUESTION" Association="Self.FK_CATEGORY_QUESTION">
             <End Role="question" EntitySet="question" />
             <End Role="category" EntitySet="category" />
@@ -213,10 +173,6 @@
             <End Role="question" EntitySet="question" />
             <End Role="commentary" EntitySet="commentary" />
           </AssociationSet>
-          <AssociationSet Name="FK_EVALUATION_EVALUATIONTYPE" Association="Self.FK_EVALUATION_EVALUATIONTYPE">
-            <End Role="evaluationtype" EntitySet="evaluationtype" />
-            <End Role="evaluation" EntitySet="evaluation" />
-          </AssociationSet>
           <AssociationSet Name="FK_EVALUATIONQUESTION_EVALUATION" Association="Self.FK_EVALUATIONQUESTION_EVALUATION">
             <End Role="evaluation" EntitySet="evaluation" />
             <End Role="evaluationquestion" EntitySet="evaluationquestion" />
@@ -224,10 +180,6 @@
           <AssociationSet Name="FK_EVALUATIONQUESTION_QUESTION" Association="Self.FK_EVALUATIONQUESTION_QUESTION">
             <End Role="question" EntitySet="question" />
             <End Role="evaluationquestion" EntitySet="evaluationquestion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_USERS_USERSTYPE" Association="Self.FK_USERS_USERSTYPE">
-            <End Role="userstype" EntitySet="userstype" />
-            <End Role="users" EntitySet="users" />
           </AssociationSet>
           <AssociationSet Name="FK_USERSEVALUATIONQUESTION_EVALUATION" Association="Self.FK_USERSEVALUATIONQUESTION_EVALUATION">
             <End Role="evaluation" EntitySet="evaluation" />
@@ -246,7 +198,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="evaluationsystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="evaluationsystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="category">
           <Key>
             <PropertyRef Name="CategoryId" />
@@ -273,18 +225,9 @@
           </Key>
           <Property Name="EvaluationId" Type="Int32" Nullable="false" />
           <Property Name="EvaluationTypeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="evaluationtype" Relationship="Self.FK_EVALUATION_EVALUATIONTYPE" FromRole="evaluation" ToRole="evaluationtype" />
+          <Property Name="ClosedCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="usersevaluationquestion" Relationship="Self.FK_USERSEVALUATIONQUESTION_EVALUATION" FromRole="evaluation" ToRole="usersevaluationquestion" />
           <NavigationProperty Name="question" Relationship="Self.evaluationquestion" FromRole="evaluation" ToRole="question" />
-        </EntityType>
-        <EntityType Name="evaluationtype">
-          <Key>
-            <PropertyRef Name="EvaluationTypeId" />
-          </Key>
-          <Property Name="EvaluationTypeId" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ClosedCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="evaluation" Relationship="Self.FK_EVALUATION_EVALUATIONTYPE" FromRole="evaluationtype" ToRole="evaluation" />
         </EntityType>
         <EntityType Name="question">
           <Key>
@@ -311,8 +254,7 @@
           <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="UsersTypeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="userstype" Relationship="Self.FK_USERS_USERSTYPE" FromRole="users" ToRole="userstype" />
+          <Property Name="UsersType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="usersevaluationquestion" Relationship="Self.FK_USERSEVALUATIONQUESTION_USERS" FromRole="users" ToRole="usersevaluationquestion" />
         </EntityType>
         <EntityType Name="usersevaluationquestion">
@@ -328,14 +270,6 @@
           <NavigationProperty Name="evaluation" Relationship="Self.FK_USERSEVALUATIONQUESTION_EVALUATION" FromRole="usersevaluationquestion" ToRole="evaluation" />
           <NavigationProperty Name="question" Relationship="Self.FK_USERSEVALUATIONQUESTION_QUESTION" FromRole="usersevaluationquestion" ToRole="question" />
           <NavigationProperty Name="users" Relationship="Self.FK_USERSEVALUATIONQUESTION_USERS" FromRole="usersevaluationquestion" ToRole="users" />
-        </EntityType>
-        <EntityType Name="userstype">
-          <Key>
-            <PropertyRef Name="UsersTypeId" />
-          </Key>
-          <Property Name="UsersTypeId" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="users" Relationship="Self.FK_USERS_USERSTYPE" FromRole="userstype" ToRole="users" />
         </EntityType>
         <Association Name="FK_CATEGORY_QUESTION">
           <End Role="question" Type="Self.question" Multiplicity="1" />
@@ -358,18 +292,6 @@
             </Principal>
             <Dependent Role="commentary">
               <PropertyRef Name="QuestionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EVALUATION_EVALUATIONTYPE">
-          <End Role="evaluationtype" Type="Self.evaluationtype" Multiplicity="1" />
-          <End Role="evaluation" Type="Self.evaluation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="evaluationtype">
-              <PropertyRef Name="EvaluationTypeId" />
-            </Principal>
-            <Dependent Role="evaluation">
-              <PropertyRef Name="EvaluationTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -397,18 +319,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_USERS_USERSTYPE">
-          <End Role="userstype" Type="Self.userstype" Multiplicity="1" />
-          <End Role="users" Type="Self.users" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="userstype">
-              <PropertyRef Name="UsersTypeId" />
-            </Principal>
-            <Dependent Role="users">
-              <PropertyRef Name="UsersTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_USERSEVALUATIONQUESTION_USERS">
           <End Role="users" Type="Self.users" Multiplicity="1" />
           <End Role="usersevaluationquestion" Type="Self.usersevaluationquestion" Multiplicity="*" />
@@ -425,15 +335,13 @@
           <End Role="evaluation" Type="Self.evaluation" Multiplicity="*" />
           <End Role="question" Type="Self.question" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="evaluationsystemEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="evaluationsystemEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="category" EntityType="Self.category" />
           <EntitySet Name="commentary" EntityType="Self.commentary" />
           <EntitySet Name="evaluation" EntityType="Self.evaluation" />
-          <EntitySet Name="evaluationtype" EntityType="Self.evaluationtype" />
           <EntitySet Name="question" EntityType="Self.question" />
           <EntitySet Name="users" EntityType="Self.users" />
           <EntitySet Name="usersevaluationquestion" EntityType="Self.usersevaluationquestion" />
-          <EntitySet Name="userstype" EntityType="Self.userstype" />
           <AssociationSet Name="FK_CATEGORY_QUESTION" Association="Self.FK_CATEGORY_QUESTION">
             <End Role="question" EntitySet="question" />
             <End Role="category" EntitySet="category" />
@@ -442,10 +350,6 @@
             <End Role="question" EntitySet="question" />
             <End Role="commentary" EntitySet="commentary" />
           </AssociationSet>
-          <AssociationSet Name="FK_EVALUATION_EVALUATIONTYPE" Association="Self.FK_EVALUATION_EVALUATIONTYPE">
-            <End Role="evaluationtype" EntitySet="evaluationtype" />
-            <End Role="evaluation" EntitySet="evaluation" />
-          </AssociationSet>
           <AssociationSet Name="FK_USERSEVALUATIONQUESTION_EVALUATION" Association="Self.FK_USERSEVALUATIONQUESTION_EVALUATION">
             <End Role="evaluation" EntitySet="evaluation" />
             <End Role="usersevaluationquestion" EntitySet="usersevaluationquestion" />
@@ -453,10 +357,6 @@
           <AssociationSet Name="FK_USERSEVALUATIONQUESTION_QUESTION" Association="Self.FK_USERSEVALUATIONQUESTION_QUESTION">
             <End Role="question" EntitySet="question" />
             <End Role="usersevaluationquestion" EntitySet="usersevaluationquestion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_USERS_USERSTYPE" Association="Self.FK_USERS_USERSTYPE">
-            <End Role="userstype" EntitySet="userstype" />
-            <End Role="users" EntitySet="users" />
           </AssociationSet>
           <AssociationSet Name="FK_USERSEVALUATIONQUESTION_USERS" Association="Self.FK_USERSEVALUATIONQUESTION_USERS">
             <End Role="users" EntitySet="users" />
@@ -472,7 +372,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="evaluationsystemModelStoreContainer" CdmEntityContainer="evaluationsystemEntities">
+        <EntityContainerMapping StorageEntityContainer="evaluationsystemModelStoreContainer" CdmEntityContainer="evaluationsystemEntities1">
           <EntitySetMapping Name="category">
             <EntityTypeMapping TypeName="evaluationsystemModel.category">
               <MappingFragment StoreEntitySet="category">
@@ -496,14 +396,6 @@
               <MappingFragment StoreEntitySet="evaluation">
                 <ScalarProperty Name="EvaluationId" ColumnName="EvaluationId" />
                 <ScalarProperty Name="EvaluationTypeId" ColumnName="EvaluationTypeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="evaluationtype">
-            <EntityTypeMapping TypeName="evaluationsystemModel.evaluationtype">
-              <MappingFragment StoreEntitySet="evaluationtype">
-                <ScalarProperty Name="EvaluationTypeId" ColumnName="EvaluationTypeId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ClosedCode" ColumnName="ClosedCode" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -529,7 +421,7 @@
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="UsersTypeId" ColumnName="UsersTypeId" />
+                <ScalarProperty Name="UsersType" ColumnName="UsersType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -540,14 +432,6 @@
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
                 <ScalarProperty Name="UsersId" ColumnName="UsersId" />
                 <ScalarProperty Name="Answer" ColumnName="Answer" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="userstype">
-            <EntityTypeMapping TypeName="evaluationsystemModel.userstype">
-              <MappingFragment StoreEntitySet="userstype">
-                <ScalarProperty Name="UsersTypeId" ColumnName="UsersTypeId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

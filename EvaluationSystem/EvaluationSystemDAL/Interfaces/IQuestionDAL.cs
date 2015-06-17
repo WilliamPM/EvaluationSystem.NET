@@ -8,5 +8,6 @@ namespace EvaluationSystemDAL.Interfaces
 {
     interface IQuestionDAL
     {
+        void create(question question);
     }
 }

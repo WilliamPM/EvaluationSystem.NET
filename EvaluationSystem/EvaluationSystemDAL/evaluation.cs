@@ -22,8 +22,8 @@ namespace EvaluationSystemDAL
     
         public int EvaluationId { get; set; }
         public int EvaluationTypeId { get; set; }
+        public string ClosedCode { get; set; }
     
-        public virtual evaluationtype evaluationtype { get; set; }
         public virtual ICollection<usersevaluationquestion> usersevaluationquestion { get; set; }
         public virtual ICollection<question> question { get; set; }
     }

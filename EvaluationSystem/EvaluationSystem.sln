@@ -1,15 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvaluationSystemUI", "EvaluationSystemUI\EvaluationSystemUI.csproj", "{FC32BD09-F74A-42F5-AF0B-F11639B7C169}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B80EE93B-A4FC-4220-B365-A8F02CA4AB6B} = {B80EE93B-A4FC-4220-B365-A8F02CA4AB6B}
+		{3A3D43B5-F0A3-4495-9400-76975DA5A710} = {3A3D43B5-F0A3-4495-9400-76975DA5A710}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvaluationSystemService", "EvaluationSystemService\EvaluationSystemService.csproj", "{B7C9320F-46B0-4CC7-B1DB-E4EA0B39BA3F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvaluationSystemDAL", "EvaluationSystemDAL\EvaluationSystemDAL.csproj", "{3A3D43B5-F0A3-4495-9400-76975DA5A710}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvaluationSystemBLL", "EvaluationSystemBLL\EvaluationSystemBLL.csproj", "{B80EE93B-A4FC-4220-B365-A8F02CA4AB6B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3A3D43B5-F0A3-4495-9400-76975DA5A710} = {3A3D43B5-F0A3-4495-9400-76975DA5A710}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

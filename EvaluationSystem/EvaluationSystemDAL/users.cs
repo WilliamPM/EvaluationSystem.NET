@@ -23,9 +23,8 @@ namespace EvaluationSystemDAL
         public string Login { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
-        public int UsersTypeId { get; set; }
+        public string UsersType { get; set; }
     
-        public virtual userstype userstype { get; set; }
         public virtual ICollection<usersevaluationquestion> usersevaluationquestion { get; set; }
     }
 }

@@ -9,13 +9,9 @@ namespace EvaluationSystemDAL.DBClasses
 {
     class UsersDAL : IUsersDAL
     {
-        public users CreateNewUser(users NewUser, String stringConexao)
+        public users CreateNewUser(users NewUser)
         {
-            
-            users.add();
-
-            
-            return User;
+            throw new NotImplementedException();
         }
     }
 }

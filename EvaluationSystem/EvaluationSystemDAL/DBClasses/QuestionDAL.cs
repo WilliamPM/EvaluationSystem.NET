@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 
 namespace EvaluationSystemDAL.DBClasses
 {
-    class QuestionDAL : IQuestionDAL
+    public class QuestionDAL : IQuestionDAL
     {
-
+        public void create(question question)
+        {
+            evaluationsystemEntities1 containner = new evaluationsystemEntities1();
+            containner.question.Add(question);
+        }
     }
 }

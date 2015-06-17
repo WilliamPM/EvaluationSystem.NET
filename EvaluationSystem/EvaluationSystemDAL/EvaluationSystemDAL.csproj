@@ -47,25 +47,35 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="category.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>EvaluationSystemDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="commentary.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>EvaluationSystemDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBClasses\CategoryDAL.cs" />
     <Compile Include="DBClasses\CommentaryDAL.cs" />
     <Compile Include="DBClasses\DBConnect.cs" />
     <Compile Include="DBClasses\EvaluationDAL.cs" />
-    <Compile Include="DBClasses\EvaluationTypeDAL.cs" />
     <Compile Include="DBClasses\QuestionDAL.cs" />
     <Compile Include="DBClasses\UsersDAL.cs" />
     <Compile Include="DBClasses\UsersEvaluationQuestionDAL.cs" />
-    <Compile Include="DBClasses\UsersTypeDAL.cs" />
     <Compile Include="evaluation.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>EvaluationSystemDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="evaluationtype.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="EvaluationSystemDBModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EvaluationSystemDBModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EvaluationSystemDBModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EvaluationSystemDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EvaluationSystemDBModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EvaluationSystemDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\ICategoryDAL.cs" />
     <Compile Include="Interfaces\ICommentaryDAL.cs" />
@@ -75,50 +85,35 @@
     <Compile Include="Interfaces\IQuestionDAL.cs" />
     <Compile Include="Interfaces\IUsersDAL.cs" />
     <Compile Include="Interfaces\IUsersTypeDAL.cs" />
-    <Compile Include="Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EvaluationSystemDBModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EvaluationSystemDBModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="question.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>EvaluationSystemDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="users.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>EvaluationSystemDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usersevaluationquestion.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="userstype.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>EvaluationSystemDBModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="EvaluationSystemDBModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>EvaluationSystemDBModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
-    <None Include="Model1.Context.tt">
+    <None Include="EvaluationSystemDBModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EvaluationSystemDBModel.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <LastGenOutput>EvaluationSystemDBModel.Context.cs</LastGenOutput>
     </None>
     <None Include="EvaluationSystemDBModel.edmx.diagram">
       <DependentUpon>EvaluationSystemDBModel.edmx</DependentUpon>
     </None>
-    <None Include="Model1.tt">
+    <None Include="EvaluationSystemDBModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EvaluationSystemDBModel.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
+      <LastGenOutput>EvaluationSystemDBModel.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
