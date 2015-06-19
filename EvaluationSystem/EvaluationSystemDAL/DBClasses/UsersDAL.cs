@@ -8,7 +8,7 @@ using EvaluationSystemModel;
 
 namespace EvaluationSystemDAL.DBClasses
 {
-    class UsersDAL : IUsersDAL
+    public class UsersDAL : IUsersDAL
     {
         public void CreateNewUser(User NewUser)
         {
