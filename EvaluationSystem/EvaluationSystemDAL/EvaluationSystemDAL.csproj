@@ -59,7 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contexto.cs" />
+    <Compile Include="Context.cs" />
     <Compile Include="DBClasses\CategoryDAL.cs" />
     <Compile Include="DBClasses\CommentaryDAL.cs" />
     <Compile Include="DBClasses\DBConnect.cs" />

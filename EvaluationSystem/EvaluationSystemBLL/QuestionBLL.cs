@@ -3,21 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using EvaluationSystemModel;
+using EvaluationSystemDAL.DBClasses;
 
 namespace EvaluationSystemBLL
 {
     public class QuestionBLL
     {
-        public Boolean create(EvaluationSystemDAL.question NewQuestion)
-        {
-            if ((NewQuestion.AnswerA == "") || (NewQuestion.AnswerB == "") || (NewQuestion.AnswerC == "") || (NewQuestion.AnswerD == "") ||
-                (NewQuestion.AnswerE == "") || (NewQuestion.category == null) || (NewQuestion.commentary == null) ||
-                (NewQuestion.CorrectAnswer == "") || (NewQuestion.Enunciation == ""))
+        public Boolean create(Question NewQuestion)
+        {            
+            string strCorrectAnswer = Char.ToString( NewQuestion.CorrectAnswer);
+            int CountCorrectAnswer = Regex.Matches(strCorrectAnswer,@"[A-E]").Count;
+            
+            if ((NewQuestion.AnswerA == "") || (NewQuestion.AnswerB == "") || (NewQuestion.AnswerC == "") ||
+                (NewQuestion.AnswerD == "") || (NewQuestion.AnswerE == "") || ( CountCorrectAnswer == 0 )|| 
+                (NewQuestion.Enunciation == ""))    
             {                
+
                 return false;
             }
-            
-            
+
+            QuestionDAL q = new QuestionDAL();
+            q.create(NewQuestion);
+             
             return true;
         } 
     }

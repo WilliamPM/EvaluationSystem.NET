@@ -12,8 +12,9 @@ namespace EvaluationSystemDAL.DBClasses
     {
         public void create(Question question)
         {
-            //evaluationsystemEntities1 containner = new evaluationsystemEntities1();
-            //containner.question.Add(question);
+            Context Context = new Context();
+            Context.Question.Add(question);
+            Context.SaveChanges();
         }
     }
 }

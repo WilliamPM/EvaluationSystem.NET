@@ -10,6 +10,6 @@ namespace EvaluationSystemDAL.Interfaces
 {
     interface IUsersEvaluationQuestionDAL
     {
-        List<IEnumerable> GetStudentGrade(users us, evaluation ev);
+        List<IEnumerable> GetStudentGrade(User user);
     }
 }

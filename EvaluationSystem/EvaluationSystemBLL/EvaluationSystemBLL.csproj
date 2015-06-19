@@ -47,6 +47,10 @@
       <Project>{3a3d43b5-f0a3-4495-9400-76975da5a710}</Project>
       <Name>EvaluationSystemDAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EvaluationSystemModel\EvaluationSystemModel.csproj">
+      <Project>{470dcbd3-9762-40bf-87eb-97e062b61bcd}</Project>
+      <Name>EvaluationSystemModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
