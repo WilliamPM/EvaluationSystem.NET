@@ -13,7 +13,7 @@ namespace EvaluationSystemModel
     {
         public int CategoryId{ get; set; }
         
-        [Required(ErrorMessage="The field descrition is required.")]
+        [Required(ErrorMessage="The field Descrition is required.")]
         public string TagDescription{ get; set; }
 
         [ForeignKey("QuestionId")]

@@ -13,11 +13,10 @@ namespace EvaluationSystemModel
     {
         [ForeignKey("QuestionId")]
         public virtual Question Question { get; set; }
+        
+        public int CommentaryId{ get; set; }
 
-        [ForeignKey("CommentaryId")]
-        public virtual Commentary Commentary { get; set; }
-
-        [Required(ErrorMessage="The field Feedback ")]
+        [Required(ErrorMessage="The field Feedback is required")]
         public string Feedback { get; set; }    
     }
 }

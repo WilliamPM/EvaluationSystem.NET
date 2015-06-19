@@ -11,16 +11,16 @@ namespace EvaluationSystemModel
     [Table("UserEvaluationQuestion")]
     public class UserEvaluationQuestion
     {
+        [ForeignKey("Users")]
+        public virtual User User { get; set; }
+
         [ForeignKey("EvaluationId")]
         public virtual Evaluation Evaluation { get; set; }
 
         [ForeignKey("QuestionId")]
         public virtual Question Question { get; set; }
 
-        [ForeignKey("UserId")]
-        public virtual User User { get; set; }
-
-        [Required(ErrorMessage="The field answer is required.")]
+        [Required(ErrorMessage="The field Answer is required.")]
         public string Answer { get; set; }
     }
 }
