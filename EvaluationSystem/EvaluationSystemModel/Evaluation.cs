@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EvaluationSystemDAL.Interfaces
+namespace EvaluationSystemModel
 {
-    interface ICategoryDAL
+    public class Evaluation
     {
 
     }

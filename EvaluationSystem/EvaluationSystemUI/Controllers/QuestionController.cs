@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EvaluationSystemBLL;
-
 namespace EvaluationSystemUI.Controllers
 {
     public class QuestionController : Controller
@@ -17,7 +16,7 @@ namespace EvaluationSystemUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(EvaluationSystemDAL.question question)
+        public ActionResult Create(question question)
         {
 
             QuestionBLL NewQuestion = new QuestionBLL();
