@@ -8,15 +8,16 @@ namespace EvaluationSystemBLL
 {
     public class QuestionBLL
     {
-        public Boolean create(EvaluationSystemDAL.question question)
+        public Boolean create(EvaluationSystemDAL.question NewQuestion)
         {
-            if ((question.AnswerA =="") || (question.AnswerB =="") ||  (question.AnswerC=="") || (question.AnswerD =="") || 
-                (question.AnswerE =="") || (question.category == null) || (question.commentary ==null) ||
-                (question.CorrectAnswer == "") || (question.Enunciation == ""))
+            if ((NewQuestion.AnswerA == "") || (NewQuestion.AnswerB == "") || (NewQuestion.AnswerC == "") || (NewQuestion.AnswerD == "") ||
+                (NewQuestion.AnswerE == "") || (NewQuestion.category == null) || (NewQuestion.commentary == null) ||
+                (NewQuestion.CorrectAnswer == "") || (NewQuestion.Enunciation == ""))
             {                
                 return false;
             }
-
+            
+            
             return true;
         } 
     }
