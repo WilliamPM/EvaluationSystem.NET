@@ -11,7 +11,7 @@ namespace EvaluationSystemDAL.DBClasses
 {
     class UsersEvaluationQuestionDAL : IUsersEvaluationQuestionDAL
     {
-        public List<IEnumerable> GetStudentGrade(User us)
+        public List<IEnumerable> GetStudentGrade(users us)
         {
             List<IEnumerable> List = null;
             return List;

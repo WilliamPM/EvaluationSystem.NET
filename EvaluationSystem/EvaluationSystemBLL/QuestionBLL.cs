@@ -11,9 +11,9 @@ namespace EvaluationSystemBLL
 {
     public class QuestionBLL
     {
-        public Boolean create(Question NewQuestion)
-        {            
-            string strCorrectAnswer = Char.ToString( NewQuestion.CorrectAnswer);
+        public Boolean create(question NewQuestion)
+        {
+            string strCorrectAnswer = NewQuestion.CorrectAnswer.ToString();
             int CountCorrectAnswer = Regex.Matches(strCorrectAnswer,@"[A-E]").Count;
             
             if ((NewQuestion.AnswerA == "") || (NewQuestion.AnswerB == "") || (NewQuestion.AnswerC == "") ||

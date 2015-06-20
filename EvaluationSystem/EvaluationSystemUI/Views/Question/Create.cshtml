@@ -1,0 +1,45 @@
+﻿@model EvaluationSystemModel.question
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Registration Form</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m=> m.Enunciation)
+                @Html.TextBoxFor(m => m.Enunciation)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.AnswerA)
+                @Html.TextBoxFor(m => m.AnswerA)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.AnswerB)
+                @Html.TextBoxFor(m => m.AnswerB)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.AnswerC)
+                @Html.TextBoxFor(m => m.AnswerC)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.AnswerD)
+                @Html.TextBoxFor(m => m.AnswerD)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.AnswerE)
+                @Html.TextBoxFor(m => m.AnswerE)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.CorrectAnswer)
+                @Html.TextBoxFor(m => m.CorrectAnswer)
+            </li>
+        </ol>
+        <input type="submit" value="Register" />
+    </fieldset>
+}

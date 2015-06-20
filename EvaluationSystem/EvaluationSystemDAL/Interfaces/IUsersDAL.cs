@@ -9,6 +9,6 @@ namespace EvaluationSystemDAL.Interfaces
 {
     interface IUsersDAL
     {
-        void CreateNewUser(User NewUser);
+        void CreateNewUser(users NewUser);
     }
 }

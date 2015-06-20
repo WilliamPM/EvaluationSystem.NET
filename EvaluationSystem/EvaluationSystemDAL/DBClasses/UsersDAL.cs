@@ -10,7 +10,7 @@ namespace EvaluationSystemDAL.DBClasses
 {
     public class UsersDAL : IUsersDAL
     {
-        public void CreateNewUser(User NewUser)
+        public void CreateNewUser(users NewUser)
         {
             throw new NotImplementedException();
         }

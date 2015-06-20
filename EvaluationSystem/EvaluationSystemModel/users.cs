@@ -12,12 +12,19 @@ namespace EvaluationSystemModel
     using System;
     using System.Collections.Generic;
     
-    public partial class category
+    public partial class users
     {
-        public int CategoryId { get; set; }
-        public string TagDescription { get; set; }
-        public int QuestionId { get; set; }
+        public users()
+        {
+            this.usersevaluationquestion = new HashSet<usersevaluationquestion>();
+        }
     
-        public virtual question question { get; set; }
+        public int UsersId { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public string Name { get; set; }
+        public string UsersType { get; set; }
+    
+        public virtual ICollection<usersevaluationquestion> usersevaluationquestion { get; set; }
     }
 }

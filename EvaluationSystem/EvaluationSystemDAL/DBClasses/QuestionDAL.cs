@@ -10,11 +10,14 @@ namespace EvaluationSystemDAL.DBClasses
 {
     public class QuestionDAL : IQuestionDAL
     {
-        public void create(Question question)
+        public void create(question question)
         {
-            Context Context = new Context();
-            Context.Question.Add(question);
-            Context.SaveChanges();
+            
+            EvaluationSystemEntities context = new EvaluationSystemEntities();
+
+            context.question.Add(question);
+            context.SaveChanges();
+            
         }
     }
 }

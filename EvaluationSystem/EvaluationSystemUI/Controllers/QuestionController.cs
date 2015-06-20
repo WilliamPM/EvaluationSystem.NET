@@ -18,9 +18,8 @@ namespace EvaluationSystemUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Question question)
+        public ActionResult Create(question question)
         {
-
             QuestionBLL NewQuestion = new QuestionBLL();
             NewQuestion.create(question);
             return View();
