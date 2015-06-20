@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using EvaluationSystemModel;
 using EvaluationSystemDAL.DBClasses;
+using System.Collections;
 
 namespace EvaluationSystemBLL
 {
     public class QuestionBLL
     {
+        private QuestionDAL questionDAL;
+        public QuestionBLL() {
+            questionDAL = new QuestionDAL();
+        }
+
         public Boolean create(question NewQuestion)
         {
             string strCorrectAnswer = NewQuestion.CorrectAnswer.ToString();
@@ -24,10 +30,16 @@ namespace EvaluationSystemBLL
                 return false;
             }
 
-            QuestionDAL q = new QuestionDAL();
-            q.create(NewQuestion);
+            questionDAL.create(NewQuestion);
              
             return true;
-        } 
+        }
+
+        public List<question> list()
+        {
+            return questionDAL.list();
+        }
+
+
     }
 }
